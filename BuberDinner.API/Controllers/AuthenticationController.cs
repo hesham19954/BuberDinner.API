@@ -21,7 +21,8 @@ namespace BuberDinner.API.Controllers
         [Route("register")]
         public IActionResult Register(RegisterRequest registerRequest)
         {
-            return Ok(registerRequest);
+            var result = _authenticationService.Register(registerRequest.FirstName,registerRequest.LastName,registerRequest.Email,registerRequest.Password);
+            return Ok(result);
         }
         
         [HttpPost]
