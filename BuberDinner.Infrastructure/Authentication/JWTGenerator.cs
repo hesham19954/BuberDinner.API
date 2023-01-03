@@ -1,4 +1,5 @@
 ﻿using BuberDinner.Application.Common.Interface.Authentication;
+using BuberDinner.Domain.Entities;
 using BuberDinner.Infrastructure.Constants;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -20,7 +21,7 @@ namespace BuberDinner.Infrastructure.Authentication
         {
             _jWTSettings = jWtoptions.Value;
         }
-        public string GenerateToken(Guid guid, string FirstName, string LastName)
+        public string GenerateToken(User user)
         {
             var signingCredentials = new SigningCredentials(
                 new SymmetricSecurityKey(
@@ -29,9 +30,9 @@ namespace BuberDinner.Infrastructure.Authentication
                 );
             var Claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub,guid.ToString()),
-                new Claim(JwtRegisteredClaimNames.GivenName,FirstName),
-                new Claim(JwtRegisteredClaimNames.FamilyName,LastName),
+                new Claim(JwtRegisteredClaimNames.Sub,user.Id.ToString()),
+                new Claim(JwtRegisteredClaimNames.GivenName,user.FirstName),
+                new Claim(JwtRegisteredClaimNames.FamilyName,user.LastName),
                 new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
 
             };

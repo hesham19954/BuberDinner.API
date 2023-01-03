@@ -19,17 +19,18 @@ namespace BuberDinner.API.Controllers
         // GET: api/<ValuesController>
         [HttpPost]
         [Route("register")]
-        public IActionResult Register(RegisterRequest registerRequest)
+        public async Task<IActionResult> Register(RegisterRequest registerRequest)
         {
-            var result = _authenticationService.Register(registerRequest.FirstName,registerRequest.LastName,registerRequest.Email,registerRequest.Password);
+            var result =await  _authenticationService.Register(registerRequest.FirstName,registerRequest.LastName,registerRequest.Email,registerRequest.Password);
             return Ok(result);
         }
         
         [HttpPost]
         [Route("login")]
-        public IActionResult Login(LoginRequest loginRequest)
+        public async Task<IActionResult>Login(LoginRequest loginRequest)
         {
-            return Ok(loginRequest);
+            var result = await _authenticationService.Login(loginRequest.Email, loginRequest.Password);
+            return Ok(result);
         }
 
        
