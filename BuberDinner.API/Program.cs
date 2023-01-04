@@ -1,3 +1,4 @@
+using BuberDinner.API.MiddleWare;
 using BuberDinner.Application;
 using BuberDinner.Application.Services.Authentication;
 using BuberDinner.Infrastructure;
@@ -24,7 +25,7 @@ var app = builder.Build();
 app.UseHttpsRedirection();
 
 //app.UseAuthorization();
-
+app.UseCustomMiddleware();
 app.MapControllers();
 
 app.Run();
